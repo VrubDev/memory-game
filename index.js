@@ -58,3 +58,28 @@ gameBoard.setAttribute("aria-label", "Game board");
 
 main.append(title, statsContainer, gameBoard);
 document.body.append(main);
+
+function createCard(item) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+  card.dataset.id = item.id;
+
+  const img = document.createElement("img");
+  img.src = item.img;
+  img.alt = item.name;
+  img.classList.add("card-img");
+
+  card.append(img);
+  return card;
+}
+
+function duplicateCards(cards) {
+  return cards.concat(cards);
+}
+
+const doubledDeck = duplicateCards(CARDS_DATA);
+
+doubledDeck.forEach((cardItem) => {
+  const cardElement = createCard(cardItem);
+  gameBoard.append(cardElement);
+});
