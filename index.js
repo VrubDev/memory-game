@@ -9,6 +9,41 @@ const CARDS_DATA = [
   { id: "cup", name: "Coffee Cup", img: "./assets/images/coffeecup.svg" },
 ];
 
+let firstCard = null;
+let secondCard = null;
+let isLocked = false;
+let moves = 0;
+let matchedPairs = 0;
+
+function resetTurn() {
+  firstCard = null;
+  secondCard = null;
+  isLocked = false;
+}
+
+function checkForMatch() {
+  const isMatch = firstCard.dataset.id === secondCard.dataset.id;
+
+  if (isMatch) {
+    firstCard.classList.add("is-matched");
+    secondCard.classList.add("is-matched");
+    matchedPairs += 1;
+    pairsCount.textContent = `${matchedPairs} / 8`;
+    resetTurn();
+
+    if (matchedPairs === 8) {
+      setTimeout(() => alert(`Победа! Сделано ходов: ${moves}`), 300);
+    }
+  } else {
+    isLocked = true;
+    setTimeout(() => {
+      firstCard.classList.remove("is-open");
+      secondCard.classList.remove("is-open");
+      resetTurn();
+    }, 1000);
+  }
+}
+
 const header = document.createElement("header");
 
 const newGameBtn = document.createElement("button");
@@ -82,4 +117,33 @@ const doubledDeck = duplicateCards(CARDS_DATA);
 doubledDeck.forEach((cardItem) => {
   const cardElement = createCard(cardItem);
   gameBoard.append(cardElement);
+});
+
+gameBoard.addEventListener("click", (event) => {
+  const clickedCard = event.target.closest(".card");
+
+  if (
+    !clickedCard ||
+    isLocked ||
+    clickedCard.classList.contains("is-open") ||
+    clickedCard.classList.contains("is-matched")
+  ) {
+    return;
+  }
+
+  clickedCard.classList.add("is-open");
+
+  if (!firstCard) {
+    firstCard = clickedCard;
+    return;
+  }
+
+  secondCard = clickedCard;
+
+  moves += 1;
+  if (typeof movesCount !== "undefined") {
+    movesCount.textContent = moves;
+  }
+
+  checkForMatch();
 });
