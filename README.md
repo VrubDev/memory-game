@@ -26,6 +26,14 @@ The board consists of 16 cards (8 pairs). On each turn, the player flips two car
 - CSS3 (Flexbox, Transitions)
 - Vanilla JavaScript (ES6+, DOM API, Web Storage API)
 
+## How to Run Locally
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/VrubDev/memory-game.git
+```
+
 2. Navigate to the project directory:
 
 ```bash
