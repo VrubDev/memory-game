@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f7f9fa;
+  color: #2c3e50;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+header {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #ffffff;
+  color: #2c3e50;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.btn:hover {
+  background-color: #f0f2f5;
+  border-color: #c0c4cc;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+main {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.game-stats {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #e4e7ed;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.stat-item {
+  font-size: 15px;
+  font-weight: 600;
+  color: #606266;
+}
+
+.stat-item span {
+  color: #1f2d3d;
+  font-weight: 700;
+}
+
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 16px;
+  background-color: #edeef0;
+  border-radius: 24px;
+  box-sizing: border-box;
+}
+
+.card {
+  flex: 0 0 calc(25% - 9px);
+  aspect-ratio: 1 / 1;
+  background-color: #2b2b2b;
+  border-radius: 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.25s ease,
+    transform 0.15s ease;
+}
+
+.card:hover {
+  transform: scale(0.97);
+}
+
+.card-img {
+  width: 65%;
+  height: 65%;
+  object-fit: contain;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+  pointer-events: none;
+}
+
+.card.is-open {
+  background-color: #ffffff;
+  cursor: default;
+}
+
+.card.is-open .card-img {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.card.is-matched {
+  background-color: #e8f5e9;
+  opacity: 0.6;
+  cursor: default;
+}
+
+.card.is-matched .card-img {
+  opacity: 1;
+  visibility: visible;
+}
+
+.game-dialog {
+  margin: auto;
+  border: none;
+  border-radius: 16px;
+  padding: 24px 28px;
+  width: 90%;
+  max-width: 360px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  position: relative;
+  text-align: center;
+}
+
+.game-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.dialog-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #777;
+}
+
+.dialog-close-btn:hover {
+  color: #111;
+}
+
+.dialog-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.dialog-list {
+  text-align: left;
+  padding-left: 24px;
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+.dialog-action-btn {
+  margin-top: 14px;
+}
