@@ -113,6 +113,26 @@ dialogBody.classList.add("dialog-body");
 gameDialog.append(dialogCloseBtn, dialogTitle, dialogBody);
 document.body.append(gameDialog);
 
+function shuffle(array) {
+  const deck = [...array];
+  for (let i = deck.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  return deck;
+}
+
+function renderCards() {
+  gameBoard.replaceChildren();
+
+  const shuffledDeck = shuffle(duplicateCards(CARDS_DATA));
+
+  shuffledDeck.forEach((cardItem) => {
+    const cardElement = createCard(cardItem);
+    gameBoard.append(cardElement);
+  });
+}
+
 gameDialog.addEventListener("click", (event) => {
   if (event.target === gameDialog) {
     gameDialog.close();
@@ -127,11 +147,7 @@ function startNewGame() {
   movesCount.textContent = "0";
   pairsCount.textContent = "0 / 8";
 
-  gameBoard.replaceChildren();
-  doubledDeck.forEach((cardItem) => {
-    const cardElement = createCard(cardItem);
-    gameBoard.append(cardElement);
-  });
+  renderCards();
 }
 
 newGameBtn.addEventListener("click", () => {
@@ -198,11 +214,6 @@ function duplicateCards(cards) {
 
 const doubledDeck = duplicateCards(CARDS_DATA);
 
-doubledDeck.forEach((cardItem) => {
-  const cardElement = createCard(cardItem);
-  gameBoard.append(cardElement);
-});
-
 gameBoard.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".card");
 
@@ -231,3 +242,5 @@ gameBoard.addEventListener("click", (event) => {
 
   checkForMatch();
 });
+
+renderCards();
