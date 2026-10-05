@@ -119,6 +119,25 @@ gameDialog.addEventListener("click", (event) => {
   }
 });
 
+function startNewGame() {
+  resetTurn();
+  moves = 0;
+  matchedPairs = 0;
+
+  movesCount.textContent = "0";
+  pairsCount.textContent = "0 / 8";
+
+  gameBoard.replaceChildren();
+  doubledDeck.forEach((cardItem) => {
+    const cardElement = createCard(cardItem);
+    gameBoard.append(cardElement);
+  });
+}
+
+newGameBtn.addEventListener("click", () => {
+  startNewGame();
+});
+
 function openDialog(titleText, contentNode) {
   dialogTitle.textContent = titleText;
   dialogBody.replaceChildren(contentNode);
