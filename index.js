@@ -32,7 +32,7 @@ function checkForMatch() {
     resetTurn();
 
     if (matchedPairs === 8) {
-      setTimeout(() => alert(`Победа! Сделано ходов: ${moves}`), 300);
+      setTimeout(() => showWinModal(moves), 300);
     }
   } else {
     isLocked = true;
@@ -93,6 +93,71 @@ gameBoard.setAttribute("aria-label", "Game board");
 
 main.append(title, statsContainer, gameBoard);
 document.body.append(main);
+
+const gameDialog = document.createElement("dialog");
+gameDialog.classList.add("game-dialog");
+
+const dialogCloseBtn = document.createElement("button");
+dialogCloseBtn.type = "button";
+dialogCloseBtn.classList.add("dialog-close-btn");
+dialogCloseBtn.textContent = "×";
+dialogCloseBtn.setAttribute("aria-label", "Close modal");
+dialogCloseBtn.addEventListener("click", () => gameDialog.close());
+
+const dialogTitle = document.createElement("h2");
+dialogTitle.classList.add("dialog-title");
+
+const dialogBody = document.createElement("div");
+dialogBody.classList.add("dialog-body");
+
+gameDialog.append(dialogCloseBtn, dialogTitle, dialogBody);
+document.body.append(gameDialog);
+
+gameDialog.addEventListener("click", (event) => {
+  if (event.target === gameDialog) {
+    gameDialog.close();
+  }
+});
+
+function openDialog(titleText, contentNode) {
+  dialogTitle.textContent = titleText;
+  dialogBody.replaceChildren(contentNode);
+  gameDialog.showModal();
+}
+
+function showWinModal(finalMoves) {
+  const content = document.createElement("div");
+
+  const text = document.createElement("p");
+  text.textContent = `You won in ${finalMoves} moves! 🎉`;
+
+  const playAgainBtn = document.createElement("button");
+  playAgainBtn.type = "button";
+  playAgainBtn.classList.add("btn", "dialog-action-btn");
+  playAgainBtn.textContent = "Play again";
+
+  playAgainBtn.addEventListener("click", () => {
+    gameDialog.close();
+    startNewGame();
+  });
+
+  content.append(text, playAgainBtn);
+  openDialog("Congratulations!", content);
+}
+
+function showLeadersWodal() {
+  const content = document.createElement("div");
+
+  const text = document.createElement("p");
+  text.textContent = "No games played yet. Be the first!";
+
+  content.append(text);
+  openDialog("Top 10 Leaderboard", content);
+}
+
+leaderBoardBtn.addEventListener("click", () => {
+  showLeadersWodal();
+});
 
 function createCard(item) {
   const card = document.createElement("div");
